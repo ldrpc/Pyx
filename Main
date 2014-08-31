@@ -126,18 +126,7 @@ public class Main extends JavaPlugin implements Listener {
 	           
 	            //Then apply this to our rocket
 	            fw.setFireworkMeta(fwm);           
-	        }     
-	    
-	    @EventHandler
-	    public void onEntityExplode(EntityExplodeEvent event) {
-	    	for(Block b : event.blockList()) {
-
-	    		
-	    		FallingBlock fallingBlock = b.getWorld().spawnFallingBlock(
-	    				b.getLocation(), b.getType(), b.getData());
-	    		fallingBlock.setDropItem(false);
-	    	}
-	    }
+	        }
 	    @EventHandler
 	    public void onPlayerInteract1(final PlayerPickupItemEvent event){
 	    	int s = event.getItem().getItemStack().getTypeId();
@@ -181,51 +170,6 @@ public class Main extends JavaPlugin implements Listener {
 	    		}
 	    	}
 	    }
-	    @EventHandler
-	    public void onProjectileLaunch(ProjectileLaunchEvent event) {
-	        Projectile proj = event.getEntity();
-	        if (proj instanceof EnderPearl) {
-	            EnderPearl pearl = (EnderPearl)proj;
-	            Entity source = pearl.getShooter();
-	            if (source instanceof Player) {
-	            	 Firework fw = (Firework)pearl.getWorld().spawnEntity(pearl.getLocation(), EntityType.FIREWORK);
-	            	 FireworkEffectPlayer fplayer = new FireworkEffectPlayer();
-	            	 Player player = (Player)source;
-		                pearl.setPassenger(fw);
-		                pearl.setVelocity(pearl.getVelocity().multiply(1));
-		                pearl.setPassenger(player);
-						try {
-							fplayer.playFirework(pearl.getWorld(), pearl.getLocation(), FireworkEffect.builder().with(Type.BURST).withColor(Color.PURPLE).withFade(Color.FUCHSIA, Color.SILVER).build());
-							fplayer.playFirework(pearl.getWorld(), pearl.getLocation(), FireworkEffect.builder().with(Type.BURST).withColor(Color.PURPLE).withFade(Color.FUCHSIA, Color.SILVER).build());
-							fplayer.playFirework(pearl.getWorld(), pearl.getLocation(), FireworkEffect.builder().with(Type.BURST).withColor(Color.PURPLE).withFade(Color.FUCHSIA, Color.SILVER).build());
-						} catch (IllegalArgumentException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-	            }
-	        }
-	    }
-	    @EventHandler
-		  public void Teleport(PlayerTeleportEvent event) {
-		    if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
-		      event.getPlayer().teleport(event.getTo().add(0, 1, 0));
-		      FireworkEffectPlayer fplayer = new FireworkEffectPlayer();
-					try {
-						fplayer.playFirework(event.getTo().getWorld(), event.getTo().add(0, 0, 0), FireworkEffect.builder().with(Type.BURST).withColor(Color.PURPLE).withFade(Color.FUCHSIA, Color.SILVER).build());
-						fplayer.playFirework(event.getTo().getWorld(), event.getTo().add(0, 0, 0), FireworkEffect.builder().with(Type.BURST).withColor(Color.PURPLE).withFade(Color.FUCHSIA, Color.SILVER).build());
-						fplayer.playFirework(event.getTo().getWorld(), event.getTo().add(0, 0, 0), FireworkEffect.builder().with(Type.BURST).withColor(Color.PURPLE).withFade(Color.FUCHSIA, Color.SILVER).build());
-					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		    }
-		  }
 	public ItemStack bomb(){
 		ItemStack lvl7Wand = new ItemStack(175, 1);
 		ItemMeta wandMeta = lvl7Wand.getItemMeta();
